@@ -1,50 +1,50 @@
 
-var trex ,trex_running
-var edges
-var ground 
-var invisibleGround
-var groundImage
-var rand
-var cloud
-var cloudImage
-var obstacle, obstacle1, obstacle2,obstacle3, obstacle4, obstacle5, obstacle6
-var score = 0
-var obstaclesGroup, cloudsGroup
-var END = 0
-var PLAY = 1
-var gameState = PLAY  
-var trex_collided
-var gameoverimg, restartimg,gameover, restart
-var jupSound, checkPointSound, dieSound
+var trex ,trex_running;
+var edges;
+var ground; 
+var invisibleGround;
+var groundImage;
+var rand;
+var cloud;
+var cloudImage;
+var obstacle, obstacle1, obstacle2,obstacle3, obstacle4, obstacle5, obstacle6;
+var score = 0;
+var obstaclesGroup, cloudsGroup;
+var END = 0;
+var PLAY = 1;
+var gameState = PLAY;
+var trex_collided;
+var gameoverimg, restartimg,gameover, restart;
+var jupSound, checkPointSound, dieSound;
 
 function preload(){
-  trex_running = loadAnimation ( "trex1.png"  ,"trex3.png", "trex4.png")
-  groundImage = loadImage("ground2.png")
-  cloudImage = loadImage("cloud.png")
-  obstacle1 = loadImage ("obstacle1.png")
-  obstacle2 = loadImage ("obstacle2.png")
-  obstacle3 = loadImage ("obstacle3.png")
-  obstacle4 = loadImage ("obstacle4.png")
-  obstacle5 = loadImage ("obstacle5.png")
-  obstacle6 = loadImage ("obstacle6.png")
-  trex_collided = loadAnimation("trex_collided.png")
-  gameoverimg = loadImage ("gameOver.png")
-  restartimg = loadImage ("restart.png")
-  jumpSound = loadSound ("jump.mp3")
-  dieSound = loadSound ("die.mp3")
-  checkPointSound = loadSound ("checkpoint.mp3")
+  trex_running = loadAnimation ( "trex1.png"  ,"trex3.png", "trex4.png");
+  groundImage = loadImage("ground2.png");
+  cloudImage = loadImage("cloud.png");
+  obstacle1 = loadImage ("obstacle1.png");
+  obstacle2 = loadImage ("obstacle2.png");
+  obstacle3 = loadImage ("obstacle3.png");
+  obstacle4 = loadImage ("obstacle4.png");
+  obstacle5 = loadImage ("obstacle5.png");
+  obstacle6 = loadImage ("obstacle6.png");
+  trex_collided = loadAnimation("trex_collided.png");
+  gameoverimg = loadImage ("gameOver.png");
+  restartimg = loadImage ("restart.png");
+  jumpSound = loadSound ("jump.mp3");
+  dieSound = loadSound ("die.mp3");
+  checkPointSound = loadSound ("checkpoint.mp3");
 }
 
 function setup(){
-  //createCanvas(600,200)
-  createCanvas(windowWidth,windowHeight)
+  //createCanvas(600,200);
+  createCanvas(windowWidth,windowHeight);
 
-  edges = createEdgeSprites()
+  edges = createEdgeSprites();
   //crear sprite del t-rex.
  trex = createSprite(50,height-70,20,50);
- trex.addAnimation("running",trex_running)
- trex.addAnimation("collided",trex_collided)
- trex.setCollider("circle",0,0,45)
+ trex.addAnimation("running",trex_running);
+ trex.addAnimation("collided",trex_collided);
+ trex.setCollider("circle",0,0,45);
  //trex.setCollider("rectangle",0,0,400,trex.height)
  trex.debug = false
   //escala del t-rex
@@ -89,8 +89,8 @@ function draw(){
 
   if(gameState == PLAY){
     //esconder los spritas de game over y restart 
-    gameover.visible = false 
-    restart.visible = false
+    gameover.visible = false;
+    restart.visible = false;
 
     // generacion del suelo 
     
@@ -101,7 +101,7 @@ function draw(){
     ground.velocityX = -(6 + score / 100)
 
      // salto del t-rex
-     if((touches.length > 0 || keyDown("space")) && trex.y >= 160){
+     if((touches.length > 0 || keyDown("space")) && trex.y >= 60){
       trex.velocityY = -10;
       jumpSound.play();
       touches = [];
@@ -113,8 +113,8 @@ function draw(){
      if(score > 0 && score % 100 == 0){
       checkPointSound.play()
      }
-     spawnClouds ()
-     spawnObstacles()
+     spawnClouds ();
+     spawnObstacles();
      // cambiar estado cuando te toquen 
      if (obstaclesGroup.isTouching(trex)){
       gameState = END
@@ -164,15 +164,15 @@ function spawnClouds(){
   cloud.addImage(cloudImage)
   cloud.scale = 0.4 
   cloud.y = Math.round (random(10,60))
-  cloud.velocityX = -3
+  cloud.velocityX = -3;
 
   // asignar un ciclo de vida
-  cloud.lifetime = 220
+  cloud.lifetime = 1000;
 
   //ajustar la profundidad
-  cloud.depth = trex.depth
-  trex.depth= trex.depth + 1
-  cloudsGroup.add (cloud)
+  cloud.depth = trex.depth;
+  trex.depth += 1;
+  cloudsGroup.add (cloud);
   }
 }
 
@@ -198,8 +198,8 @@ function spawnObstacles(){
       default:break
     }
     //asignar escala y tiwmpo de vida 
-    obstacle.scale = 0.5
-    obstacle.lifetime = 350
+    obstacle.scale = 0.5;
+    obstacle.lifetime = 450;
     //Grupo de obstaculos 
     obstaclesGroup.add(obstacle)
   }
